@@ -163,41 +163,12 @@ main{max-width:1100px;margin:auto;padding:20px;}
 }
 </style>
 
-/* ===== MARCA DE AGUA CENTRAL MAEL GSM (FINAL CORRECTA) ===== */
-.watermark-mael{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60vw;
-  max-width: 600px;
-  opacity: 0.03;
-  filter: blur(0.6px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Todo el contenido va encima de la marca de agua */
-header,
-main,
-section,
-.servicios,
-.pagos,
-.tarjeta{
-  position: relative;
-  z-index: 2;
-}
-
-@media (max-width: 768px){
-  .watermark-mael{
-    width: 90vw;
-    opacity: 0.025;
-  }
-}
-  
 </head>
 
 <body>
+
+<!-- MARCA DE AGUA -->
+<img src="watermark.png" class="watermark-mael" alt="MAEL GSM Watermark">
 
 <div class="banner-top">
   <img src="banner-top.png" alt="MAEL GSM Banner">

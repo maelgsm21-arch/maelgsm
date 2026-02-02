@@ -174,17 +174,25 @@ main{max-width:1100px;margin:auto;padding:20px;}
   100%{transform:rotate(0deg)}
 }
 </style>
-  /* ===== MARCA DE AGUA CENTRAL ===== */
-.watermark-mael{
+
+  .watermark-mael{
   position:fixed;
-  top:50%;
+  top:55%;
   left:50%;
   transform:translate(-50%,-50%);
-  width:80vw;
-  max-width:700px;
-  opacity:0.08;
+  width:65vw;
+  max-width:520px;
+  opacity:0.045;
+  filter:blur(0.3px);
   pointer-events:none;
-  z-index:0;
+  z-index:1;
+}
+
+@media(max-width:768px){
+  .watermark-mael{
+    width:85vw;
+    opacity:0.035;
+  }
 }
 
 @media(max-width:768px){

@@ -24,14 +24,19 @@ body{
   color:var(--text);
 }
 
-.banner-top img {
-width:100%;
-max-height:220px;
-object-fit:cover:
-display:block;
+/* ===== BANNER SUPERIOR ===== */
+.banner-top{
+  width:100%;
+  margin:0;
+  padding:0;
+}
+.banner-top img{
+  width:100%;
+  height:auto;
+  display:block;
 }
 
-header{text-align:center;padding:50px 20px 30px;}
+header{text-align:center;padding:40px 20px 30px;}
 header h1{font-family:Orbitron;color:var(--primary);}
 
 main{max-width:1100px;margin:auto;padding:20px;}
@@ -76,6 +81,16 @@ main{max-width:1100px;margin:auto;padding:20px;}
 
 .pagos{text-align:center;padding-bottom:90px;}
 
+.pago{
+  display:inline-block;
+  margin:20px;
+}
+.qr{
+  width:180px;
+  border-radius:12px;
+  box-shadow:0 0 15px rgba(0,229,255,.4);
+}
+
 .whatsapp{
   position:fixed;
   bottom:20px;
@@ -115,15 +130,12 @@ main{max-width:1100px;margin:auto;padding:20px;}
   font-size:.7rem;
   padding:4px 10px;
   border-radius:10px;
-  box-shadow:0 0 12px rgba(0,229,255,.8);
-  animation:saludo 2s infinite;
 }
 
 #robot-mael .ojos{
   display:flex;
   gap:10px;
 }
-
 #robot-mael .ojo{
   width:12px;
   height:12px;
@@ -156,19 +168,14 @@ main{max-width:1100px;margin:auto;padding:20px;}
   0%,90%,100%{transform:scaleY(1)}
   95%{transform:scaleY(.2)}
 }
-@keyframes saludo{
-  0%{transform:rotate(0deg)}
-  50%{transform:rotate(5deg)}
-  100%{transform:rotate(0deg)}
-}
 </style>
-
 </head>
 
 <body>
 
+<!-- ===== BANNER ===== -->
 <div class="banner-top">
-  <img src="banner-top.png" alt="MAEL GSM Banner">
+  <img src="banner-top.png" alt="MAEL GSM Servicios GSM">
 </div>
 
 <header>
@@ -179,10 +186,8 @@ main{max-width:1100px;margin:auto;padding:20px;}
 <main>
 
 <section class="servicios">
-
 <script>
 const TASA = 3.424;
-
 const servicios = [
  ["Unlock Tool 3 meses",25],
  ["Unlock Tool 6 meses",35],
@@ -218,54 +223,30 @@ document.write(servicios.map(s=>`
 </div>
 `).join(""));
 </script>
-
 </section>
 
 <hr>
 
 <section class="pagos">
-<h2>🛒 Carrito</h2>
-
-<label>
-Moneda:
-<select id="moneda" onchange="render()">
-<option value="USDT">USDT</option>
-<option value="SOLES">SOLES</option>
-</select>
-</label>
-
-<div id="carrito"></div>
-<h3>Total: <span id="total">0</span></h3>
-
 <h2>💳 Métodos de Pago</h2>
-<img src="qr-binance.png" width="180">
-<img src="qr-yape.png" width="180">
 
-<br><br>
+<div class="pago">
+  <h3>YAPE</h3>
+  <img src="yape.png" class="qr">
+</div>
+
+<div class="pago">
+  <h3>BINANCE USDT</h3>
+  <img src="binance.png" class="qr">
+</div>
 
 <a id="pedidoWhatsapp" class="btn" style="background:#25D366;">Enviar pedido por WhatsApp</a>
-
-<div style="margin-top:25px;">
-  <a class="btn" href="https://wa.me/56991916550?text=Hola, quiero consultar antes de pagar">💬 Consultar</a>
-  <a class="btn" href="https://wa.me/56991916550?text=Hola, ya realicé el pago y envío comprobante">📲 Ya pagué</a>
-</div>
-
-<div style="margin-top:30px;text-align:center;">
-  <a class="btn"
-     href="https://chat.whatsapp.com/LVjarvm030T3mckknuaKC3"
-     target="_blank"
-     style="background:#128C7E;color:#fff;">
-     👥 Grupo Oficial MAEL GSM
-  </a>
-</div>
-
 </section>
 
 </main>
 
 <a class="whatsapp" href="https://wa.me/56991916550" target="_blank">WhatsApp</a>
 
-<!-- ROBOT -->
 <div id="robot-mael" onclick="hablarRobot()">
   <div id="cartel-bienvenido">BIENVENIDO</div>
   <div class="ojos">
@@ -275,64 +256,19 @@ Moneda:
 </div>
 
 <div id="robot-texto">
-  👋 ¡Bienvenido a <b>MAEL GSM</b>!<br>
-  Selecciona tu servicio y haz tu pedido.<br>
-  Estamos listos para ayudarte 🤖
+  👋 Bienvenido a <b>MAEL GSM</b><br>
+  Selecciona tu servicio y paga seguro 🤖
 </div>
 
 <script>
-let carrito=[];
-let totalUSDT=0;
-let pedidoID = Math.floor(Math.random()*90000)+10000;
-let estadoActual = "EN ESPERA";
-
-function agregar(nombre,precio){
-  carrito.push({nombre,precio});
-  totalUSDT+=precio;
-  render();
-}
-
-function render(){
-  let moneda=document.getElementById("moneda").value;
-  let html="";
-  carrito.forEach(i=>{
-    let precio = moneda==="USDT"
-      ? `${i.precio} USDT`
-      : `${(i.precio*TASA).toFixed(0)} SOLES`;
-    let clase =
-      estadoActual==="EN PROCESO" ? "estado-proceso" :
-      estadoActual==="ÉXITO" ? "estado-exito" : "estado-espera";
-
-    html+=`<p>✔ ${i.nombre} – ${precio}
-      <span class="estado ${clase}">${estadoActual}</span></p>`;
-  });
-
-  document.getElementById("carrito").innerHTML=html;
-
-  let total = moneda==="USDT"
-    ? `${totalUSDT} USDT`
-    : `${(totalUSDT*TASA).toFixed(0)} SOLES`;
-
-  document.getElementById("total").innerText=total;
-
-  let msg=`Hola, realicé el pedido N° ${pedidoID}:%0A`;
-  carrito.forEach(i=>{
-    msg+=`- ${i.nombre} (${i.precio} USDT / ${(i.precio*TASA).toFixed(0)} SOLES)%0A`;
-  });
-  msg+=`Total: ${totalUSDT} USDT / ${(totalUSDT*TASA).toFixed(0)} SOLES%0A`;
-  msg+=`Estado: ${estadoActual}%0AAdjunto comprobante.`;
-
-  document.getElementById("pedidoWhatsapp").href =
-    "https://wa.me/56991916550?text="+msg;
-}
-
+let carrito=[], totalUSDT=0;
+function agregar(n,p){carrito.push({n,p});totalUSDT+=p;}
 function hablarRobot(){
   const t=document.getElementById("robot-texto");
   t.style.display="block";
-  setTimeout(()=>{t.style.display="none";},6000);
+  setTimeout(()=>t.style.display="none",6000);
 }
-
-setTimeout(()=>{hablarRobot();},2000);
+setTimeout(hablarRobot,2000);
 </script>
 
 </body>

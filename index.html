@@ -24,11 +24,21 @@ body{
   color:var(--text);
 }
 
-header{text-align:center;padding:50px 20px 30px;}
-header h1{font-family:Orbitron;color:var(--primary);}
+/* ===== BANNER FULL ===== */
+.banner-top img{
+  width:100%;
+  max-height:220px;
+  object-fit:cover;
+  display:block;
+}
+
+/* ===== HEADER ===== */
+header{text-align:center;padding:30px 20px;}
+header h1{font-family:Orbitron;color:var(--primary);margin:10px 0 5px;}
 
 main{max-width:1100px;margin:auto;padding:20px;}
 
+/* ===== SERVICIOS ===== */
 .servicios{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -55,20 +65,16 @@ main{max-width:1100px;margin:auto;padding:20px;}
   cursor:pointer;
 }
 
-.estado{
-  display:inline-block;
-  padding:4px 10px;
-  border-radius:15px;
-  font-size:.75rem;
-  font-weight:700;
-  margin-left:6px;
-}
-.estado-espera{background:#e53935;color:#fff;}
-.estado-proceso{background:#fbc02d;color:#000;}
-.estado-exito{background:#43a047;color:#fff;}
-
+/* ===== PAGOS ===== */
 .pagos{text-align:center;padding-bottom:90px;}
+.qr{
+  width:180px;
+  margin:15px;
+  border-radius:14px;
+  box-shadow:0 0 15px rgba(0,229,255,.35);
+}
 
+/* ===== WHATSAPP ===== */
 .whatsapp{
   position:fixed;
   bottom:20px;
@@ -98,7 +104,6 @@ main{max-width:1100px;margin:auto;padding:20px;}
   animation:flotar 3s ease-in-out infinite;
   z-index:9999;
 }
-
 #cartel-bienvenido{
   position:absolute;
   top:-28px;
@@ -108,36 +113,21 @@ main{max-width:1100px;margin:auto;padding:20px;}
   font-size:.7rem;
   padding:4px 10px;
   border-radius:10px;
-  box-shadow:0 0 12px rgba(0,229,255,.8);
-  animation:saludo 2s infinite;
 }
-
-#robot-mael .ojos{
-  display:flex;
-  gap:10px;
-}
-
+#robot-mael .ojos{display:flex;gap:10px;}
 #robot-mael .ojo{
-  width:12px;
-  height:12px;
+  width:12px;height:12px;
   background:#00e5ff;
   border-radius:50%;
-  animation:parpadeo 4s infinite;
 }
-
 #robot-texto{
   position:fixed;
   bottom:120px;
   left:20px;
   background:#11162a;
-  color:#e0e0e0;
   padding:12px 16px;
   border-radius:15px;
-  box-shadow:0 0 20px rgba(0,229,255,.4);
-  font-size:.85rem;
-  max-width:230px;
   display:none;
-  z-index:9999;
 }
 
 @keyframes flotar{
@@ -145,19 +135,15 @@ main{max-width:1100px;margin:auto;padding:20px;}
   50%{transform:translateY(-8px)}
   100%{transform:translateY(0)}
 }
-@keyframes parpadeo{
-  0%,90%,100%{transform:scaleY(1)}
-  95%{transform:scaleY(.2)}
-}
-@keyframes saludo{
-  0%{transform:rotate(0deg)}
-  50%{transform:rotate(5deg)}
-  100%{transform:rotate(0deg)}
-}
 </style>
 </head>
 
 <body>
+
+<!-- ===== BANNER ===== -->
+<div class="banner-top">
+  <img src="banner-top.png" alt="MAEL GSM Banner">
+</div>
 
 <header>
   <h1>MAEL GSM</h1>
@@ -167,10 +153,8 @@ main{max-width:1100px;margin:auto;padding:20px;}
 <main>
 
 <section class="servicios">
-
 <script>
 const TASA = 3.424;
-
 const servicios = [
  ["Unlock Tool 3 meses",25],
  ["Unlock Tool 6 meses",35],
@@ -181,20 +165,6 @@ const servicios = [
  ["AMT Tool 3 meses",15],
  ["AMT Tool 6 meses",25],
  ["AMT Tool 12 meses",35],
- ["Chimera Tool Básica",100],
- ["Chimera Tool Professional",150],
- ["Chimera Tool Premium",185],
- ["Cheetah Tool 3 meses",28],
- ["Cheetah Tool 6 meses",38],
- ["Cheetah Tool 12 meses",49],
- ["TSM Tool 6 meses",30],
- ["TSM Tool 12 meses",40],
- ["Pandora Tool 12 meses",75],
- ["Sigma Plus Tool 3 días",12],
- ["Sigma Plus Tool 1 mes",39],
- ["Sigma Plus Tool 3 meses",65],
- ["Fenix Utility Pro 1 mes",20],
- ["Fenix Utility Pro 12 meses",48],
  ["QR eSIM iPhone IMEI 2 (13–16 Pro Max)",10]
 ];
 
@@ -206,121 +176,37 @@ document.write(servicios.map(s=>`
 </div>
 `).join(""));
 </script>
-
 </section>
 
 <hr>
 
 <section class="pagos">
-<h2>🛒 Carrito</h2>
-
-<label>
-Moneda:
-<select id="moneda" onchange="render()">
-<option value="USDT">USDT</option>
-<option value="SOLES">SOLES</option>
-</select>
-</label>
-
-<div id="carrito"></div>
-<h3>Total: <span id="total">0</span></h3>
-
 <h2>💳 Métodos de Pago</h2>
-<img src="qr-binance.png" width="180">
-<img src="qr-yape.png" width="180">
-
+<img src="qr-binance.png" class="qr" alt="QR Binance">
+<img src="qr-yape.png" class="qr" alt="QR Yape">
 <br><br>
-
 <a id="pedidoWhatsapp" class="btn" style="background:#25D366;">Enviar pedido por WhatsApp</a>
-
-<div style="margin-top:25px;">
-  <a class="btn" href="https://wa.me/56991916550?text=Hola, quiero consultar antes de pagar">💬 Consultar</a>
-  <a class="btn" href="https://wa.me/56991916550?text=Hola, ya realicé el pago y envío comprobante">📲 Ya pagué</a>
-</div>
-
-<div style="margin-top:30px;text-align:center;">
-  <a class="btn"
-     href="https://chat.whatsapp.com/LVjarvm030T3mckknuaKC3"
-     target="_blank"
-     style="background:#128C7E;color:#fff;">
-     👥 Grupo Oficial MAEL GSM
-  </a>
-</div>
-
 </section>
 
 </main>
 
 <a class="whatsapp" href="https://wa.me/56991916550" target="_blank">WhatsApp</a>
 
-<!-- ROBOT -->
 <div id="robot-mael" onclick="hablarRobot()">
   <div id="cartel-bienvenido">BIENVENIDO</div>
-  <div class="ojos">
-    <div class="ojo"></div>
-    <div class="ojo"></div>
-  </div>
+  <div class="ojos"><div class="ojo"></div><div class="ojo"></div></div>
 </div>
 
-<div id="robot-texto">
-  👋 ¡Bienvenido a <b>MAEL GSM</b>!<br>
-  Selecciona tu servicio y haz tu pedido.<br>
-  Estamos listos para ayudarte 🤖
-</div>
+<div id="robot-texto">👋 Bienvenido a MAEL GSM</div>
 
 <script>
 let carrito=[];
-let totalUSDT=0;
-let pedidoID = Math.floor(Math.random()*90000)+10000;
-let estadoActual = "EN ESPERA";
-
-function agregar(nombre,precio){
-  carrito.push({nombre,precio});
-  totalUSDT+=precio;
-  render();
-}
-
-function render(){
-  let moneda=document.getElementById("moneda").value;
-  let html="";
-  carrito.forEach(i=>{
-    let precio = moneda==="USDT"
-      ? `${i.precio} USDT`
-      : `${(i.precio*TASA).toFixed(0)} SOLES`;
-    let clase =
-      estadoActual==="EN PROCESO" ? "estado-proceso" :
-      estadoActual==="ÉXITO" ? "estado-exito" : "estado-espera";
-
-    html+=`<p>✔ ${i.nombre} – ${precio}
-      <span class="estado ${clase}">${estadoActual}</span></p>`;
-  });
-
-  document.getElementById("carrito").innerHTML=html;
-
-  let total = moneda==="USDT"
-    ? `${totalUSDT} USDT`
-    : `${(totalUSDT*TASA).toFixed(0)} SOLES`;
-
-  document.getElementById("total").innerText=total;
-
-  let msg=`Hola, realicé el pedido N° ${pedidoID}:%0A`;
-  carrito.forEach(i=>{
-    msg+=`- ${i.nombre} (${i.precio} USDT / ${(i.precio*TASA).toFixed(0)} SOLES)%0A`;
-  });
-  msg+=`Total: ${totalUSDT} USDT / ${(totalUSDT*TASA).toFixed(0)} SOLES%0A`;
-  msg+=`Estado: ${estadoActual}%0AAdjunto comprobante.`;
-
-  document.getElementById("pedidoWhatsapp").href =
-    "https://wa.me/56991916550?text="+msg;
-}
-
+function agregar(){alert("Servicio agregado ✔")}
 function hablarRobot(){
   const t=document.getElementById("robot-texto");
   t.style.display="block";
-  setTimeout(()=>{t.style.display="none";},6000);
+  setTimeout(()=>t.style.display="none",4000);
 }
-
-setTimeout(()=>{hablarRobot();},2000);
 </script>
 
 </body>

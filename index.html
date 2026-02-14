@@ -87,6 +87,79 @@ main{max-width:1100px;margin:auto;padding:20px;}
   font-weight:700;
   color:#000;
 }
+
+#robot-mael{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  width:90px;
+  height:90px;
+  background:#11162a;
+  border-radius:20px;
+  box-shadow:0 0 20px rgba(0,229,255,.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  animation:flotar 3s ease-in-out infinite;
+  z-index:9999;
+}
+
+#cartel-bienvenido{
+  position:absolute;
+  top:-28px;
+  background:#00e5ff;
+  color:#000;
+  font-weight:700;
+  font-size:.7rem;
+  padding:4px 10px;
+  border-radius:10px;
+  box-shadow:0 0 12px rgba(0,229,255,.8);
+  animation:saludo 2s infinite;
+}
+
+#robot-mael .ojos{
+  display:flex;
+  gap:10px;
+}
+
+#robot-mael .ojo{
+  width:12px;
+  height:12px;
+  background:#00e5ff;
+  border-radius:50%;
+  animation:parpadeo 4s infinite;
+}
+
+#robot-texto{
+  position:fixed;
+  bottom:120px;
+  left:20px;
+  background:#11162a;
+  color:#e0e0e0;
+  padding:12px 16px;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(0,229,255,.4);
+  font-size:.85rem;
+  max-width:230px;
+  display:none;
+  z-index:9999;
+}
+
+@keyframes flotar{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+  100%{transform:translateY(0)}
+}
+@keyframes parpadeo{
+  0%,90%,100%{transform:scaleY(1)}
+  95%{transform:scaleY(.2)}
+}
+@keyframes saludo{
+  0%{transform:rotate(0deg)}
+  50%{transform:rotate(5deg)}
+  100%{transform:rotate(0deg)}
+}
 </style>
 </head>
 
@@ -181,13 +254,21 @@ Moneda:
 
 <br><br>
 
-<!-- BOTÓN ACTUALIZADO -->
-<a id="pedidoWhatsapp" 
-   class="btn" 
-   style="background:#25D366;"
-   target="_blank">
-   Enviar pedido por WhatsApp
-</a>
+<a id="pedidoWhatsapp" class="btn" style="background:#25D366;">Enviar pedido por WhatsApp</a>
+
+<div style="margin-top:25px;">
+  <a class="btn" href="https://wa.me/56961473961?text=Hola, quiero consultar antes de pagar">💬 Consultar</a>
+  <a class="btn" href="https://wa.me/56961473961?text=Hola, ya realicé el pago y envío comprobante">📲 Ya pagué</a>
+</div>
+
+<div style="margin-top:30px;text-align:center;">
+  <a class="btn"
+     href="https://chat.whatsapp.com/LVjarvm030T3mckknuaKC3"
+     target="_blank"
+     style="background:#128C7E;color:#fff;">
+     👥 Grupo Oficial MAEL GSM
+  </a>
+</div>
 
 </section>
 </main>
@@ -198,6 +279,7 @@ Moneda:
 let carrito=[];
 let totalUSDT=0;
 let pedidoID=Math.floor(Math.random()*90000)+10000;
+let estadoActual="EN ESPERA";
 
 function agregar(nombre,precio){
   carrito.push({nombre,precio});
